@@ -1,4 +1,4 @@
-# Autonomous_Vacuum_Cleaner
+# Autonomous Vacuum Cleaner
 
 ## Description:
 AI Vacuum Cleaner Project in Unity 3D using A* Algorithm for advanced navigation and trash collection.
