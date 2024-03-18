@@ -27,8 +27,14 @@ public class Grafica{
 	}
 
 	float distancia(Vertice a, Vertice b) {
-		//Completar
-		return 0;
+
+		float dx = a.posicion.x - b.posicion.x;
+		float dy = a.posicion.y - b.posicion.y;
+		float dz = a.posicion.z - b.posicion.z;
+
+		float dis = Math.sqrt((dx ** 2) + (dy ** 2) + (dz ** 2))
+
+		return dis;
 	}
 
 	int menorF(List<Vertice> l) {
