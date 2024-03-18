@@ -39,7 +39,19 @@ public class Grafica{
 
 	int menorF(List<Vertice> l) {
 		//Coompletar
-		return 0;
+		float menorf = 0;
+		int indice = 0;
+		int count = 0;
+
+		menorf = l[0].f;
+		for(int i = 0; i < l.Count; i++){
+			if(l[i].f <= menorf){
+				menorf = l[i].f;
+				indice = count;
+		    }
+		count++;
+		}
+		return indice;
 	}
 
 	//M�todo que da una representaci�n escrita de la gr�fica.
