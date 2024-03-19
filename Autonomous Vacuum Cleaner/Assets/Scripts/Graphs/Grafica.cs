@@ -11,15 +11,15 @@ public class Grafica{
     public void AgregarVertice(Vertice nuevoVertice) {
         //Completar
 		if(!grafica.Contains(nuevoVertice)) grafica.Add(nuevoVertice);
+
     }
 
 	//Aplica el Algoritmo de A*
 	public bool AStar(Vertice inicio, Vertice final) {
 		//Completar
 
-		if (inicio == null || final == null){
-			return false;
-		}
+		if (inicio == null || final == null) return false;
+		
 
 		List<Vertice> abierto = new List<Vertice>();
 		List<Vertice> cerrado = new List<Vertice>();
