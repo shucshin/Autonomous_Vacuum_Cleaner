@@ -10,9 +10,7 @@ public class Grafica{
 	//Agrega un v�rtice a la lista de v�rtices de la gr�fica.
     public void AgregarVertice(Vertice nuevoVertice) {
         //Completar
-		if(!grafica.Contains(nuevoVertice)) {
-			grafica.Add(nuevoVertice);
-		}
+		if(!grafica.Contains(nuevoVertice)) grafica.Add(nuevoVertice);
     }
 
 	//Aplica el Algoritmo de A*
@@ -61,7 +59,6 @@ public class Grafica{
 	public void reconstruirCamino(Vertice inicio, Vertice final) {
 
 		string aux = "";
-		
 		camino.Clear();
 		camino.Add(final);
 
@@ -72,7 +69,6 @@ public class Grafica{
 		}
 		camino.Insert(0, inicio);
 
-		
 		foreach(Vertice v in camino) {
 			aux += v.id.ToString() + "";
 		}
