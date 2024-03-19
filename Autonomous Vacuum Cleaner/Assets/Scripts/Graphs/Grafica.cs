@@ -18,6 +18,42 @@ public class Grafica{
 	//Aplica el Algoritmo de A*
 	public bool AStar(Vertice inicio, Vertice final) {
 		//Completar
+
+		if (inicio == null || final == null){
+			return false;
+		}
+
+		List<Vertice> abierto = new List<Vertice>();
+		List<Vertice> cerrado = new List<Vertice>();
+
+		inicio.g = 0;
+		inicio.h = distancia(inicio,final);
+		inicio.f = inicio.h;
+
+		abierto.Add(inicio);
+
+		while (abierto.Count > 0) {
+			int i = menorF(abierto);
+			Vertice actual = abierto[i];
+			 if(actual.id == final.id) {
+				reconstruirCamino(inicio,final);
+				return true;
+			 }
+			 abierto.RemoveAt(i);
+			 cerrado.Add(actual);
+
+			 foreach(Vertice v in actual.vecinos){
+				if(-1 < closed.IndexOf(v)) continue;
+				
+				if(open.IndexOf(v) == -1){
+					v.camino = actual;
+					v.g = actual.g + 1;
+					v.h = distancia(actual,final);
+					v.f = v.g + v.h;
+				}
+			 }
+		}
+
 		return true;
     }
 
