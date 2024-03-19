@@ -59,6 +59,25 @@ public class Grafica{
 
 	//Auxiliar que reconstruye el camino de A*
 	public void reconstruirCamino(Vertice inicio, Vertice final) {
+
+		string aux = "";
+		
+		camino.Clear();
+		camino.Add(final);
+
+		var rc = final.camino;
+		while (rc.id != inicio.id) {
+			camino.Insert(0, rc);
+			rc = rc.camino;
+		}
+		camino.Insert(0, inicio);
+
+		
+		foreach(Vertice v in camino) {
+			aux += v.id.ToString() + "";
+		}
+
+
 		//Completar
 	}
 
