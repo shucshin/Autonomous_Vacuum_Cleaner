@@ -25,13 +25,13 @@ public class Mapa : MonoBehaviour{
     }
 
     /**
-     * Método que coloca un nodo de la gráfica en la posición que se necesite
+     * Mï¿½todo que coloca un nodo de la grï¿½fica en la posiciï¿½n que se necesite
      * 0 al centro del objeto
      * 1 a la izquierda
      * 2 a al frente
      * 3 a la derecha
-     * La posición se determina con un offset de "granularidad"
-     * Si ya existe un vértice en esa posición no lo coloca y lo hace adyacente al existente.
+     * La posiciï¿½n se determina con un offset de "granularidad"
+     * Si ya existe un vï¿½rtice en esa posiciï¿½n no lo coloca y lo hace adyacente al existente.
      */
     public void ColocarNodo(int direccion) {
         if (cont >= 0) {
@@ -47,7 +47,7 @@ public class Mapa : MonoBehaviour{
                 case 1://Izquierda
                 vaux = transform.position + this.transform.right * -1 * granularidad;
                 foreach (Vertice v in mapa.grafica) {
-                    if (Vector3.Distance(vaux, v.posicion) < granularidad - 0.15) {//Verifica si algún vértice está al menos así de cerca.
+                    if (Vector3.Distance(vaux, v.posicion) < granularidad - 0.15) {//Verifica si algï¿½n vï¿½rtice estï¿½ al menos asï¿½ de cerca.
                         encontrado = v;
                         canSetNode = false;
                         break;
@@ -80,7 +80,7 @@ public class Mapa : MonoBehaviour{
             cont++;
             switch (direccion) {
                 case 0://Centro
-                newNodo = Instantiate(nodo, this.gameObject.transform.position, Quaternion.identity);//Crea un objeto de visualización, no es objeto de la gráfica.
+                newNodo = Instantiate(nodo, this.gameObject.transform.position, Quaternion.identity);//Crea un objeto de visualizaciï¿½n, no es objeto de la grï¿½fica.
                 newNodo.transform.SetParent(grafica);
                 aux = new Vertice(cont, this.transform.position);
                 preV = aux;                
@@ -124,12 +124,12 @@ public class Mapa : MonoBehaviour{
         //Debug.Log(mapa.toString());
     }
 
-    //Asigna el vértice anterior.
+    //Asigna el vï¿½rtice anterior.
     public void setPreV(Vertice newPreV) {
         preV = newPreV;
     }
 
-    //Verifica si el Stack está vacío.
+    //Verifica si el Stack estï¿½ vacï¿½o.
     public bool isEmptyStack() {
         return dfsStack.Count == 0 ? true : false;
     }
@@ -140,7 +140,7 @@ public class Mapa : MonoBehaviour{
         return dfsStack.TryPop(out stack);
     }
 
-    //Dibuja la gráfica en Scene
+    //Dibuja la grï¿½fica en Scene
     public void DrawGraph() {
         if (cont >= 0) {
             foreach (Vertice g in mapa.grafica) {
@@ -159,12 +159,12 @@ public class Mapa : MonoBehaviour{
         }
     }
 
-    //Borra el camino en gráfica
+    //Borra el camino en grï¿½fica
     public void clearPath() {
         mapa.camino.Clear();
     }
 
-    //Dibuja los sensores en las posiciones que verifican los vértices.
+    //Dibuja los sensores en las posiciones que verifican los vï¿½rtices.
     public void OnDrawGizmosSelected() {
         Vector3 iz = new Vector3(transform.position.x - granularidad, transform.position.y, transform.position.z);        
         Vector3 fr = new Vector3(transform.position.x, transform.position.y, transform.position.z + granularidad);

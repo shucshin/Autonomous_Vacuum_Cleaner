@@ -7,7 +7,7 @@ using UnityEngine;
 // y a un costado, sin embargo, es posible definir más rayos de la misma manera.
 public class Rayo : MonoBehaviour{
 
-    public float longitudDeRayo,radio;
+    public float longitudDeRayo, radio;
     public LayerMask obstaculos;
     private bool frenteLibre, izquierdaLibre, derechaLibre;
 
