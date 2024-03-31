@@ -1510,7 +1510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeaea8df69ac5cc899e5c57b3f16be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bateria: 50
+  bateria: 100
   capacidadMaximaBateria: 100
   velocidadDeCarga: 10
 --- !u!1001 &1200409702
@@ -2267,13 +2267,9 @@ MonoBehaviour:
   look: 0
   pila: 1
   path: 1
-  estado: Default
+  estado: DFS
   bateria: 100
   bateriaMax: 100
-  timer: 0
-  idA: 0
-  idD: 0
-  idV: 0
   sig: 0
 --- !u!114 &1902013081
 MonoBehaviour:

@@ -11,8 +11,7 @@ public class ComportamientoAutomatico : MonoBehaviour {
         MAPEO,
         Carga,
         AStarCarga,
-        AStarBack,
-        FIN
+        AStarBack
     }
 
     private State currentState;
@@ -22,7 +21,7 @@ public class ComportamientoAutomatico : MonoBehaviour {
     public Vertice verticeActual, verticeDestino, verticeCamino, Estacion;
     public Vector3 destino;
     public bool fp = true, look = false, pila = true, path = false;
-    public string estado = "Default";
+    public string estado;
     public float bateria, bateriaMax;
     public int sig;
 
@@ -116,7 +115,7 @@ public class ComportamientoAutomatico : MonoBehaviour {
             destino = verticeActual.posicion;
             // mapa.popStack(out verticeActual);
             mapa.setPreV(verticeActual);   //Asignar a mapa el vértice nuevo al que nos vamos a mover, para crear las adyacencias necesarias.
-            bfsQueue.Enqueue(verticeActual);
+            bfsQueue.Enqueue(verticeDestino);
             fp = false;
         }
 
@@ -217,9 +216,6 @@ public class ComportamientoAutomatico : MonoBehaviour {
         } 
     } 
 
-    void UpdateFIN() {
-
-    }
 
     // Funciones de actualizacion especificas para cada estado
     void UpdateDFS_MAP() {
