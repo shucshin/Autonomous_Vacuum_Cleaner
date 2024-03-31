@@ -18,8 +18,9 @@ public class Bateria : MonoBehaviour
     // ========================================
     // Métodos públicos que podrán ser utilizados por otros componentes (scripts):
     public void Cargar(){
-        if(bateria < capacidadMaximaBateria)
+        if(bateria < capacidadMaximaBateria) {
             bateria += Time.deltaTime * velocidadDeCarga;
+        }
     }
 
     public float NivelDeBateria(){

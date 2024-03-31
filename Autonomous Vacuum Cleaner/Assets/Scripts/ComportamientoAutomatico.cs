@@ -11,7 +11,8 @@ public class ComportamientoAutomatico : MonoBehaviour {
         MAPEO,
         Carga,
         AStarCarga,
-        AStarBack
+        AStarBack,
+        FIN
     }
 
     private State currentState;
@@ -22,8 +23,8 @@ public class ComportamientoAutomatico : MonoBehaviour {
     public Vector3 destino;
     public bool fp = true, look = false, pila = true, path = false;
     public string estado = "Default";
-    public float bateria, bateriaMax, timer;
-    public int idA, idD, idV, sig;
+    public float bateria, bateriaMax;
+    public int sig;
 
     public Queue<Vertice> bfsQueue = new Queue<Vertice>();
 
@@ -35,7 +36,7 @@ public class ComportamientoAutomatico : MonoBehaviour {
         mapa.ColocarNodo(0);
         mapa.popStack(out verticeActual);
         verticeDestino = verticeActual;
-        Estacion = verticeActual;
+        Estacion = verticeActual; // maybe
         bateriaMax = sensor.Bateria();
     }
 
@@ -80,8 +81,6 @@ public class ComportamientoAutomatico : MonoBehaviour {
             UpdateAStarBack();
             break; 
         }
-        idA = verticeActual.id;
-        idD = verticeDestino.id;
     }
 
     void UpdateMAPEO() {
@@ -91,11 +90,6 @@ public class ComportamientoAutomatico : MonoBehaviour {
             actuador.GirarIzquierda();
         } else {
             actuador.Adelante();
-        }
-        timer += Time.deltaTime;
-        if(timer >= 3.0f) {
-            timer = 0;
-            mapa.ColocarNodo(0);
         }
     }
 
@@ -108,6 +102,12 @@ public class ComportamientoAutomatico : MonoBehaviour {
      * 4.- Repetir hasta vaciar la pila
      */
     void UpdateDFS() {
+        if(mapa.isEmptyStack()) {
+            while(bfsQueue.Count != 0) {
+                mapa.dfsStack.Push(bfsQueue.Dequeue());
+            }
+        }
+
         if (fp) {
             if(!mapa.popStack(out verticeActual)) {
                 SetState(State.AStarBack);
@@ -116,6 +116,7 @@ public class ComportamientoAutomatico : MonoBehaviour {
             destino = verticeActual.posicion;
             // mapa.popStack(out verticeActual);
             mapa.setPreV(verticeActual);   //Asignar a mapa el vértice nuevo al que nos vamos a mover, para crear las adyacencias necesarias.
+            bfsQueue.Enqueue(verticeActual);
             fp = false;
         }
 
@@ -145,10 +146,15 @@ public class ComportamientoAutomatico : MonoBehaviour {
         } 
     } 
 
+    
     void UpdateCarga() {
-        if(bateria <= bateriaMax) {
-            actuador.Detener();
-            actuador.CargarBateria();
+        if(bateria < bateriaMax) {
+            if(verticeCamino == Estacion) {
+                actuador.Detener();
+                actuador.CargarBateria();
+                return;
+            } 
+            SetState(State.AStarCarga);
         } else {
             pila = true;
             SetState(State.AStarBack);
@@ -163,8 +169,7 @@ public class ComportamientoAutomatico : MonoBehaviour {
         } else {
             if(sig < mapa.mapa.camino.Count) {
                 verticeCamino = mapa.mapa.camino[sig];
-                idV = verticeCamino.id;
-                if(Vector3.Distance(sensor.Ubicacion(), verticeCamino.posicion) >= 0) {
+                if(Vector3.Distance(sensor.Ubicacion(), verticeCamino.posicion) >= 0.04f) {
                     if(!look) {
                         transform.LookAt(verticeCamino.posicion);
                         look = true;
@@ -188,18 +193,19 @@ public class ComportamientoAutomatico : MonoBehaviour {
             mapa.mapa.AStar(Estacion, verticeActual);
             path = true;
             sig = 0;
+            //sig = mapa.mapa.camino.Count-1; // here
         } else {
+            // if(sig >= 0) {
             if(sig < mapa.mapa.camino.Count) {
                 verticeCamino = mapa.mapa.camino[sig];
-                idV = verticeCamino.id;
-                if(Vector3.Distance(sensor.Ubicacion(), verticeCamino.posicion) >= 0) {
+                if(Vector3.Distance(sensor.Ubicacion(), verticeCamino.posicion) >= 0.04f) {
                     if(!look) {
                         transform.LookAt(verticeCamino.posicion);
                         look = true;
                     }
                     actuador.Adelante();
                 } else {
-                    sig++;
+                    sig++; // here
                     look = false;
                 }
             } else {
@@ -210,6 +216,10 @@ public class ComportamientoAutomatico : MonoBehaviour {
             }
         } 
     } 
+
+    void UpdateFIN() {
+
+    }
 
     // Funciones de actualizacion especificas para cada estado
     void UpdateDFS_MAP() {
