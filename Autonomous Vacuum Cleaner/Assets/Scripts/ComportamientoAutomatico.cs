@@ -47,7 +47,7 @@ public class ComportamientoAutomatico : MonoBehaviour {
 
     private void Update() {
         bateria = sensor.Bateria();
-        if(bateria <= bateriaMax*0.5) {
+        if(bateria <= bateriaMax*0.35) {
             pila = false;
         }
     } 
